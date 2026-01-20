@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 
 interface MermaidDiagramProps {
@@ -29,16 +30,26 @@ export const MermaidDiagram: React.FC<MermaidDiagramProps> = ({ chart }) => {
           let cleanChart = chart
             .replace(/```mermaid/g, '')
             .replace(/```/g, '')
+            // Handle literal escaped newlines which might occur if the LLM double-escapes in JSON
+            .replace(/\\n/g, '\n')
             // Fix capitalization that breaks parser (e.g. Subgraph -> subgraph)
             .replace(/\bSubgraph\b/g, 'subgraph')
             .replace(/\bGraph\b/g, 'graph')
             .replace(/\bEnd\b/g, 'end')
+            // Fix common snake_case mistake for sequence diagrams
+            .replace(/sequence_diagram/g, 'sequenceDiagram')
             // Fix direction casing (graph td -> graph TD) which causes lexical errors in some versions
             .replace(/graph\s+td\b/i, 'graph TD')
             .replace(/graph\s+lr\b/i, 'graph LR')
             .replace(/graph\s+tb\b/i, 'graph TB')
             .replace(/graph\s+bt\b/i, 'graph BT')
             .replace(/graph\s+rl\b/i, 'graph RL')
+            // Ensure proper formatting for direction commands inside subgraphs
+            .replace(/direction\s+td\b/i, '\ndirection TD\n')
+            .replace(/direction\s+lr\b/i, '\ndirection LR\n')
+            .replace(/direction\s+tb\b/i, '\ndirection TB\n')
+            .replace(/direction\s+bt\b/i, '\ndirection BT\n')
+            .replace(/direction\s+rl\b/i, '\ndirection RL\n')
              // Ensure graph direction has space if missing (e.g., graphTD)
             .replace(/^graph([A-Z])/, 'graph $1')
             .trim();

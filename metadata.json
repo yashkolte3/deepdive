@@ -1,5 +1,7 @@
 {
   "name": "DeepDive",
   "description": "An intuitive, AI-powered learning platform for software engineers that adapts content depth from high-level concepts to deep technical internals.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [
+    "microphone"
+  ]
 }

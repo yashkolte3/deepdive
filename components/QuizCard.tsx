@@ -17,32 +17,32 @@ export const QuizCard: React.FC<QuizCardProps> = ({ quiz }) => {
   };
 
   return (
-    <div className="bg-dark-card rounded-2xl border border-brand-900/50 overflow-hidden shadow-xl">
-      <div className="bg-gradient-to-r from-brand-900/50 to-dark-bg p-4 border-b border-brand-900/30 flex items-center justify-between">
-        <div className="flex items-center gap-2 text-white font-bold">
-          <Trophy className="text-yellow-400" size={20} />
-          <span>Knowledge Check</span>
+    <div className="glass-card rounded-[32px] overflow-hidden">
+      <div className="bg-white/5 p-6 border-b border-white/10 flex items-center justify-between">
+        <div className="flex items-center gap-3 text-white font-bold">
+          <Trophy className="text-yellow-400 fill-yellow-400/20" size={24} />
+          <span className="text-lg">Knowledge Check</span>
         </div>
-        <span className="text-xs text-brand-300 bg-brand-900/50 px-2 py-1 rounded">Interactive</span>
+        <span className="text-xs text-white/60 bg-white/10 px-3 py-1 rounded-full font-medium">Interactive</span>
       </div>
       
-      <div className="p-6">
-        <h4 className="text-lg text-gray-100 font-medium mb-6">{quiz.question}</h4>
+      <div className="p-8">
+        <h4 className="text-xl text-white font-medium mb-8 leading-relaxed max-w-3xl">{quiz.question}</h4>
         
         <div className="space-y-3">
           {quiz.options.map((option, idx) => {
-            let stateClass = "border-dark-border hover:border-brand-500 hover:bg-dark-bg/80";
-            let icon = <div className="w-5 h-5 rounded-full border border-gray-500" />;
+            let stateClass = "border-white/10 bg-white/5 hover:bg-white/10";
+            let icon = <div className="w-5 h-5 rounded-full border border-white/30" />;
 
             if (isRevealed) {
               if (idx === quiz.correctIndex) {
-                stateClass = "border-green-500 bg-green-900/20";
-                icon = <CheckCircle className="text-green-500" size={20} />;
+                stateClass = "border-green-500/50 bg-green-500/20";
+                icon = <CheckCircle className="text-green-400" size={20} />;
               } else if (idx === selected) {
-                stateClass = "border-red-500 bg-red-900/20";
-                icon = <XCircle className="text-red-500" size={20} />;
+                stateClass = "border-red-500/50 bg-red-500/20";
+                icon = <XCircle className="text-red-400" size={20} />;
               } else {
-                stateClass = "border-dark-border opacity-50";
+                stateClass = "border-white/5 opacity-50";
               }
             }
 
@@ -51,24 +51,24 @@ export const QuizCard: React.FC<QuizCardProps> = ({ quiz }) => {
                 key={idx}
                 onClick={() => handleSelect(idx)}
                 disabled={isRevealed}
-                className={`w-full text-left p-4 rounded-xl border-2 transition-all flex items-center gap-4 ${stateClass}`}
+                className={`w-full text-left p-5 rounded-2xl border transition-all flex items-center gap-4 ${stateClass}`}
               >
                 {icon}
-                <span className="text-gray-200">{option}</span>
+                <span className="text-white/90 text-lg">{option}</span>
               </button>
             );
           })}
         </div>
 
         {isRevealed && (
-          <div className="mt-6 p-4 bg-brand-900/20 border border-brand-500/30 rounded-xl animate-fade-in">
-            <div className="flex items-start gap-3">
-              <HelpCircle className="text-brand-400 shrink-0 mt-1" size={20} />
+          <div className="mt-8 p-6 bg-white/5 border border-white/10 rounded-2xl animate-fade-in">
+            <div className="flex items-start gap-4">
+              <HelpCircle className="text-blue-400 shrink-0 mt-1" size={24} />
               <div>
-                <p className="font-bold text-brand-300 mb-1">
+                <p className="font-bold text-white text-lg mb-2">
                   {selected === quiz.correctIndex ? "Correct!" : "Not quite right."}
                 </p>
-                <p className="text-gray-300 text-sm leading-relaxed">
+                <p className="text-white/70 text-base leading-relaxed">
                   {quiz.explanation}
                 </p>
               </div>

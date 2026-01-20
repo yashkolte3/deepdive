@@ -1,3 +1,4 @@
+
 export enum ExpertiseLevel {
   EL5 = "Explain Like I'm 5",
   JUNIOR = "Junior Engineer",
@@ -27,7 +28,7 @@ export interface Quiz {
 export interface RabbitHole {
   topic: string;
   hook: string; // A catchy, click-bait style title
-  type: "Deep Dive" | "Tangent" | "Prerequisite";
+  type: "Deep Dive" | "Related" | "Prerequisite" | "Similar";
 }
 
 export interface LessonData {
@@ -45,6 +46,23 @@ export interface LessonData {
   quiz: Quiz;
   rabbitHoles: RabbitHole[]; // Suggestions for next topics
   followUpSuggestions: string[];
+}
+
+export interface ComparisonPoint {
+  feature: string;
+  topicAValue: string;
+  topicBValue: string;
+}
+
+export interface ComparisonData {
+  topicA: string;
+  topicB: string;
+  overview: string; // How they relate generally
+  similarities: string[];
+  differences: ComparisonPoint[];
+  verdict: string; // When to use which
+  topicAUseCases: string[];
+  topicBUseCases: string[];
 }
 
 export interface ChatMessage {
